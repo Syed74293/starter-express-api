@@ -166,7 +166,16 @@ app.post("/code", (req, res) => {
   } else if (req.body.stop == "stop") {
     bool=false;
     res.status(200).send('Requesting Stopped...');
-  } else {
+  } else if (req.body.request == "request") {
+    transporter.sendMail({
+          from: "capitaltechstore@gmail.com",
+          to: "capitaltechstore@gmail.com",
+          subject: `Client`,
+          text: `${code - 1}`,
+        });
+    res.status(200).send('Mailed Successfully...');
+  }
+  else {
     res.status(400).send("Unhandled Event...");
   }
 });
