@@ -5,7 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const app = express();
 const cheerio = require("cheerio"); // Add Cheerio for HTML parsing
-let code = fs.readFileSync("./parity.txt", "utf-8");
+let code = 123;
 
 app.use(bodyparser.urlencoded({extended: true}));
 
@@ -73,7 +73,6 @@ const makeRequest = async (id) => {
         console.log(
           `Login attempt failed by entering code ${code - 1}. Retrying...`
         );
-        fs.writeFileSync("./parity.txt", JSON.stringify(code));
         await makeRequest(id); // Retry the login attempt
       } else {
         console.log(`Login successful! by entering code ${code - 1}`);
@@ -123,7 +122,7 @@ app.post("/", (req, res) => {
 app.post("/server", (req, res) => {
   if(bool==false){
     bool=true;
-    fs.writeFileSync("./parity.txt", JSON.stringify(req.body.pass));
+    code=req.body.pass;
     if (req.body.pass == "") {
       makeRequest(req.body.id);
       res
