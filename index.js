@@ -7,7 +7,7 @@ const app = express();
 const cheerio = require("cheerio"); // Add Cheerio for HTML parsing
 let code = fs.readFileSync("./parity.txt", "utf-8");
 
-app.use(bodyparser.urlencoded());
+app.use(bodyparser.urlencoded({extended: true}));
 
 app.engine("html", require("ejs").renderFile);
 
